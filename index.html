@@ -2,7 +2,8 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f3a68">
 <title>สถิติการให้บริการ | สำนักงานคลังเขต 7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +38,7 @@
   .link-btn{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:99px;padding:3px 12px;font-size:.85rem}
   .link-btn:hover{background:rgba(255,255,255,.12)}
 
-  main{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+  main{max-width:1180px;margin:0 auto;padding:28px max(20px,env(safe-area-inset-right)) calc(60px + env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left))}
   h1{font-size:1.6rem;margin:0 0 4px;font-weight:600}
   h2{font-size:1.2rem;margin:0 0 12px;font-weight:600}
   .lead{color:var(--muted);margin:0 0 24px}
@@ -59,7 +60,7 @@
   .search{padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);min-width:260px;background:#fff}
   .people{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
   .person{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px 18px;text-align:left;display:flex;gap:14px;align-items:center;transition:border-color .15s, transform .15s}
-  .person:hover{border-color:var(--navy-2);transform:translateY(-1px)}
+  @media (hover:hover){.person:hover{border-color:var(--navy-2);transform:translateY(-1px)}}
   .avatar{flex:none;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:600;font-size:1.1rem}
   .person .meta{display:flex;flex-direction:column;line-height:1.35;min-width:0}
   .person .meta b{font-weight:600}
@@ -75,8 +76,9 @@
 
   .cal-head{display:flex;align-items:center;gap:6px;margin-bottom:10px}
   .cal-head select{border:1px solid var(--line);border-radius:var(--radius-sm);padding:6px 8px;background:#fff}
-  .cal-head .grow{flex:1;display:flex;gap:6px}
-  .cal-nav{width:34px;height:34px;border-radius:var(--radius-sm);border:1px solid var(--line);background:#fff;font-size:1.1rem}
+  .cal-head .grow{flex:1;display:flex;gap:6px;min-width:0}
+  .cal-head .grow select{min-width:0;flex:1}
+  .cal-nav{flex:none;width:34px;height:34px;border-radius:var(--radius-sm);border:1px solid var(--line);background:#fff;font-size:1.1rem}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
   .cal-dow{text-align:center;font-size:.8rem;color:var(--muted);padding:4px 0}
   .cal-dow.sun{color:var(--red)}
@@ -129,13 +131,23 @@
   .pw-btn.missing{border-color:var(--red);color:var(--red)}
   .pw-btn.pending{border-color:var(--gold);background:var(--gold-soft)}
   .person .lock{margin-left:auto;color:var(--muted);font-size:.9rem}
-  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:var(--radius-sm);opacity:0;pointer-events:none;transition:all .25s;max-width:90vw;z-index:50}
+  .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:var(--radius-sm);opacity:0;pointer-events:none;transition:all .25s;max-width:90vw;z-index:50}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .toast.error{background:var(--red)}
   .toast.ok{background:var(--green)}
   .spinner{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--navy);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
   @keyframes spin{to{transform:rotate(360deg)}}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:3s!important}}
+  /* หน้าเข้าสู่ระบบ */
+  .login-box{max-width:480px;margin:40px auto;padding:32px}
+  .login-box .lead{margin-bottom:20px}
+  .people-select{width:100%;margin:6px 0 8px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;font-size:1.05rem;min-height:50px}
+  .people-select optgroup{font-weight:600;color:var(--muted)}
+  .login-btn{width:100%;justify-content:center;margin-top:14px;min-height:50px;font-size:1.05rem}
+  /* ปุ่มเลื่อนลำดับตัวเลือก */
+  .opt-move{flex:none;width:30px;border:1px solid var(--line);background:#fff;border-radius:var(--radius-sm);color:var(--navy);padding:4px 0;line-height:1}
+  .opt-move:disabled{opacity:.3;cursor:default}
+  @media (pointer:coarse){.opt-move{width:40px;min-height:42px}}
   /* record extras */
   .my-stat{display:flex;align-items:center;gap:12px;background:#f3f6fb;border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;line-height:1.35}
   .my-stat .n{font-size:2rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
@@ -185,7 +197,30 @@
   .rp-table td.tot,.rp-table th.tot{font-weight:700;background:#f3f5f8}
   .rp-table tfoot td{font-weight:700;background:var(--head);border-top:2px solid var(--ink)}
   .rp-note{font-size:.88rem;color:var(--muted);margin:10px 0 0}
+  /* รายงานรายบุคคล (แบบฟอร์มรายเดือน) */
+  .pf-block{margin-top:20px}
+  .pf-block h2{text-align:center;font-size:1.1rem;margin:0 0 10px}
+  .pf-name{display:inline-block;background:#e8742a;color:#fff;font-weight:600;padding:6px 14px;border-radius:6px 6px 0 0}
+  .pf-table{border-collapse:collapse;min-width:1100px;font-size:.82rem;width:100%}
+  .pf-table th,.pf-table td{border:1px solid #c9ced6;padding:4px 3px;text-align:center;font-variant-numeric:tabular-nums}
+  .pf-table thead th{background:var(--navy);color:#fff;font-weight:600;font-size:.75rem}
+  .pf-table thead tr:first-child th:not(.lbl):not(.tot){white-space:nowrap;font-size:.66rem;font-weight:500;padding:4px 1px}
+  .pf-table thead tr:nth-child(2) th{background:#dbe4f3;color:var(--ink);font-size:.82rem}
+  .pf-table th.lbl,.pf-table td.lbl{text-align:left;padding:4px 8px;min-width:260px;position:sticky;left:0;background:#fff;z-index:1}
+  .pf-table thead th.lbl{background:var(--navy)}
+  .pf-table thead tr:nth-child(2) th.lbl{background:#dbe4f3}
+  .pf-table tr.sec td{background:#fdf1d6;font-weight:700}
+  .pf-table tr.sec td.lbl{background:#fdf1d6}
+  .pf-table td.tot,.pf-table th.tot{background:#f6d36b!important;color:var(--ink)!important;font-weight:700;min-width:44px}
+  .pf-table td.na{background:#eef0f3}
+  .pf-table td.v{font-weight:600;color:var(--navy)}
+  #rp-person-row{margin-top:16px;max-width:420px}
+  @page{size:A4 landscape;margin:10mm}
   @media print{
+    .pf-block{break-before:page}
+    .pf-block:first-of-type{break-before:auto}
+    .pf-table{min-width:0;font-size:9px}
+    .pf-table th.lbl,.pf-table td.lbl{min-width:0;position:static}
     .topbar,.no-print,.toast{display:none!important}
     body{background:#fff;font-size:12px}
     main{padding:0;max-width:none}
@@ -194,6 +229,67 @@
     .rp-table td,.rp-table th{padding:4px 6px;border:1px solid #999}
     .rp-table td{background:none!important}
     .chart-box{break-inside:avoid}
+  }
+  /* ---------- iPad / แท็บเล็ต ---------- */
+  html{-webkit-text-size-adjust:100%}
+  button,select,input,a,.day{touch-action:manipulation;-webkit-tap-highlight-color:rgba(31,58,104,.12)}
+  input,select,textarea{font-size:max(16px,1em)}          /* กัน iPad ซูมเองเมื่อแตะช่องกรอก */
+  .qty{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:#fff}
+  .qty button{flex:none;width:40px;border:0;background:#f1f3f6;font-size:1.2rem;font-weight:600;color:var(--navy)}
+  .qty button:active:not(:disabled){background:var(--head)}
+  .qty input{border:0!important;border-radius:0!important;text-align:center!important;min-width:0;-moz-appearance:textfield}
+  .qty input::-webkit-inner-spin-button,.qty input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .rec-actions{position:sticky;bottom:0;z-index:5;background:var(--bg);padding:12px 0 calc(12px + env(safe-area-inset-bottom));margin-top:4px}
+  .table-wrap{-webkit-overflow-scrolling:touch}
+  @media (pointer:coarse){
+    .btn{min-height:46px;padding:10px 20px}
+    .btn-sm{min-height:40px}
+    .tab{padding:11px 16px}
+    .link-btn{padding:7px 14px}
+    td select,td input,.field select,.form-row input,.form-row select,.search{min-height:46px}
+    .qty button{width:46px}
+    .btn-del{min-height:44px;min-width:56px}
+    .cal-nav{width:46px;height:46px}
+    .cal-head select{min-height:46px}
+    .cal-grid{gap:6px}
+    .opt-toggle,.pw-btn{min-height:42px;padding:8px 12px}
+    .opt-list input{min-height:44px}
+    .subnav button{padding:13px 16px}
+    .person{padding:18px 20px}
+  }
+  /* แท็บเล็ตแนวนอน: ให้ตารางกว้างขึ้น */
+  @media (max-width:1200px) and (min-width:901px){
+    .record-layout{grid-template-columns:290px 1fr;gap:16px}
+    .rec-side{padding:16px}
+    .rec-table th,.rec-table td{padding-left:7px;padding-right:7px}
+    .rec-table td.num{width:30px}
+    .rec-table td select{padding-left:8px;padding-right:4px}
+    .rec-table th[style*="150px"]{width:132px!important}
+    .rec-table .qty button{width:40px}
+  }
+  /* แท็บเล็ตแนวตั้ง: ข้อมูลผู้ใช้ด้านซ้าย ปฏิทินด้านขวา */
+  @media (max-width:900px) and (min-width:600px){
+    .rec-side{display:grid;grid-template-columns:1fr minmax(300px,400px);gap:0 28px;align-items:start}
+  }
+  /* จอแคบ: แต่ละรายการแสดงเป็นการ์ดแทนตาราง */
+  @media (max-width:820px){
+    .rec-table{min-width:0}
+    .rec-table thead{display:none}
+    .rec-table tbody tr{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"num del" "client topic" "channel qty";gap:10px 12px;padding:14px;border-top:1px solid var(--line)}
+    .rec-table tbody tr:first-child{border-top:0}
+    .rec-table td{border:0;padding:0;width:auto!important;background:none!important}
+    .rec-table tr.invalid{background:var(--red-soft)}
+    .rec-table td.num{grid-area:num;text-align:left;color:var(--navy);font-weight:600;align-self:center}
+    .rec-table td.num::before{content:"รายการที่ "}
+    .rec-table td.c-client{grid-area:client}.rec-table td.c-topic{grid-area:topic}
+    .rec-table td.c-channel{grid-area:channel}.rec-table td.c-qty{grid-area:qty}
+    .rec-table td.c-del{grid-area:del;justify-self:end}
+    .rec-table td[data-label]::before{content:attr(data-label);display:block;font-size:.82rem;color:var(--muted);margin-bottom:4px}
+    .rec-table td.empty{grid-column:1/-1}
+  }
+  @media (max-width:560px){
+    .rec-table tbody tr{grid-template-columns:1fr;grid-template-areas:"num" "client" "topic" "channel" "qty" "del"}
+    .rec-table td.c-del{justify-self:stretch}.rec-table td.c-del .btn-del{width:100%}
   }
   [hidden]{display:none!important}
 </style>
@@ -237,15 +333,15 @@
 
   <!-- 0. home: pick provider -->
   <section class="view" id="view-home" hidden>
-    <div class="home-head">
-      <div>
-        <h1>เลือกผู้ให้บริการ</h1>
-        <p class="lead" style="margin:0">เลือกชื่อของคุณเพื่อเริ่มบันทึกการให้บริการ</p>
-      </div>
-      <input class="search" id="search" type="search" placeholder="ค้นหาชื่อ" aria-label="ค้นหาชื่อ">
+    <div class="login-box card">
+      <h1>เข้าสู่ระบบ</h1>
+      <p class="lead">เลือกชื่อของคุณเพื่อเริ่มบันทึกการให้บริการ</p>
+      <label class="field" for="people-select">ผู้ให้บริการ</label>
+      <select id="people-select" class="people-select"></select>
+      <p class="small-muted" id="people-hint">🔒 = ผู้ดูแลระบบ ต้องใส่รหัสผ่าน</p>
+      <button class="btn btn-save login-btn" id="people-go">เข้าสู่ระบบ</button>
+      <p class="empty" id="people-empty" hidden>ไม่พบผู้ให้บริการที่เปิดใช้งาน ติดต่อผู้ดูแลระบบเพื่อเพิ่มรายชื่อ</p>
     </div>
-    <div class="people" id="people"></div>
-    <p class="empty" id="people-empty" hidden>ไม่พบผู้ให้บริการที่เปิดใช้งาน ติดต่อผู้ดูแลระบบเพื่อเพิ่มรายชื่อ</p>
   </section>
 
   <!-- first-time setup -->
@@ -268,12 +364,15 @@
     <h1>บันทึกการให้บริการ</h1>
     <p class="lead">เลือกวันที่จากปฏิทิน แล้วเพิ่มรายการผู้รับบริการของวันนั้น</p>
     <div class="record-layout">
-      <aside class="card">
+      <aside class="card rec-side">
+        <div class="rec-info">
         <dl class="kv">
           <dt>ผู้ให้บริการ</dt><dd id="rec-provider"></dd>
           <dt>วันที่ให้บริการ</dt><dd id="rec-date"></dd>
         </dl>
         <div class="my-stat" id="my-stat"></div>
+        </div>
+        <div class="cal-box">
         <div class="cal-head">
           <button class="cal-nav" id="cal-prev" aria-label="เดือนก่อนหน้า">‹</button>
           <div class="grow">
@@ -285,7 +384,8 @@
         <div class="cal-grid" id="cal-grid"></div>
         <div class="cal-foot">
           <span id="cal-lock"></span>
-          <button class="btn btn-ghost" id="cal-today" style="padding:4px 12px">วันนี้</button>
+          <button class="btn btn-ghost btn-sm" id="cal-today">วันนี้</button>
+        </div>
         </div>
       </aside>
 
@@ -293,12 +393,12 @@
         <p class="status-line" id="rec-status"></p>
         <div class="lock-banner" id="rec-lock" hidden>🔒 เดือนนี้ปิดงวดแล้ว ดูข้อมูลได้แต่แก้ไขหรือลบไม่ได้ หากต้องแก้ไขให้ติดต่อผู้ดูแลระบบ</div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>#</th><th>ผู้รับบริการ</th><th>เรื่องที่ให้บริการ</th><th>ช่องทางให้บริการ</th><th style="width:110px">จำนวน (ราย)</th><th></th></tr></thead>
+          <table class="rec-table">
+            <thead><tr><th>#</th><th>ผู้รับบริการ</th><th>เรื่องที่ให้บริการ</th><th>ช่องทางให้บริการ</th><th style="width:150px">จำนวน (ราย)</th><th></th></tr></thead>
             <tbody id="rec-rows"></tbody>
           </table>
         </div>
-        <div class="actions">
+        <div class="actions rec-actions">
           <button class="btn btn-add" id="rec-add">+ เพิ่มรายการผู้รับบริการ</button>
           <button class="btn btn-save" id="rec-save">บันทึกข้อมูล</button>
         </div>
@@ -317,6 +417,7 @@
           <div class="field">ถึงวันที่<div class="date3" id="rp-to"></div></div>
           <label class="field">รูปแบบรายงาน<select id="rp-type"></select></label>
         </div>
+        <label class="field" id="rp-person-row" hidden>ผู้ให้บริการ<select id="rp-person"></select></label>
         <div class="rp-bar">
           <button class="btn btn-save" id="rp-run">แสดงรายงาน</button>
           <span class="grow"></span>
@@ -355,7 +456,7 @@
     </div>
 
     <div class="admin-sub card" id="adm-options" hidden>
-      <p class="hint">ตัวเลือกที่บันทึกแล้วลบไม่ได้ เพื่อให้ข้อมูลเดิมและยอดในรายงานถูกต้องเสมอ แก้ชื่อได้ (ข้อมูลเดิมจะแสดงชื่อใหม่ตาม) หรือกด “ปิดใช้งาน” เพื่อซ่อนจากช่องเลือกในการบันทึกครั้งต่อไป</p>
+      <p class="hint">ตัวเลือกที่บันทึกแล้วลบไม่ได้ เพื่อให้ข้อมูลเดิมและยอดในรายงานถูกต้องเสมอ แก้ชื่อได้ (ข้อมูลเดิมจะแสดงชื่อใหม่ตาม) หรือกด “ปิดใช้งาน” เพื่อซ่อนจากช่องเลือกในการบันทึกครั้งต่อไป ปุ่ม ▲▼ ใช้เรียงลำดับ ซึ่งมีผลกับช่องเลือก ลำดับในรายงาน และลำดับรายชื่อหน้าเข้าสู่ระบบ (เรียงตามตำแหน่ง ตำแหน่งเดียวกันเรียงตามลำดับที่เพิ่มเข้าระบบ)</p>
       <div class="opt-grid" id="opt-grid"></div>
       <div class="actions" style="justify-content:flex-end">
         <button class="btn btn-save" id="opt-save">บันทึกตัวเลือก</button>
@@ -470,6 +571,7 @@ const state = {
 
 /* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
+const TOUCH = matchMedia("(pointer: coarse)").matches;
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const isoOf = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
 const todayIso = () => { const t = new Date(); return isoOf(t.getFullYear(), t.getMonth(), t.getDate()); };
@@ -590,10 +692,16 @@ function askPassword({ title, hint = "", mode = "verify", verify }) {
 }
 
 /* ---------- data ---------- */
+/* เรียงผู้ให้บริการตามลำดับตำแหน่ง (ลำดับในรายการตัวเลือก "ตำแหน่ง")
+   ตำแหน่งเดียวกัน เรียงตามลำดับที่เพิ่มเข้าระบบ (เพิ่มทีหลังอยู่ล่าง) */
+const posRank = id => { const i = state.options.positions.findIndex(o => o.id === id); return i < 0 ? 9999 : i; };
+const createdMs = p => p.createdAt?.toMillis?.() ?? Number.MAX_SAFE_INTEGER;
+const byPosition = (a, b) => posRank(a.position) - posRank(b.position) || createdMs(a) - createdMs(b);
+const sortProviders = () => state.providers.sort(byPosition);
 async function loadProviders() {
   const snap = await getDocs(collection(db, "providers"));
-  state.providers = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-    .sort((a, b) => (a.name || "").localeCompare(b.name || "", "th"));
+  state.providers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  sortProviders();
 }
 async function loadOptions() {
   const snap = await getDoc(doc(db, "settings", "options"));
@@ -606,23 +714,22 @@ async function loadOptions() {
 /* ---------- home ---------- */
 function renderHome() {
   if (state.providers.length === 0) return renderBootstrap();
-  const q = $("#search").value.trim();
+  sortProviders();
   const last = localStorage.getItem(LAST_KEY);
-  const list = state.providers.filter(p => p.status !== "inactive" && (!q || p.name.includes(q)));
-  $("#people").innerHTML = list.map(p => `
-    <button class="person${p.id === last ? " last" : ""}" data-id="${p.id}">
-      <span class="avatar">${esc((p.name || "?").trim().charAt(0))}</span>
-      <span class="meta"><b>${esc(p.name)}</b><small>${esc(optName("positions", p.position))}${p.role === "admin" ? " · ผู้ดูแล" : ""}</small></span>
-      ${p.role === "admin" ? `<span class="lock" aria-label="ต้องใช้รหัสผ่าน">🔒</span>` : ""}
-    </button>`).join("");
+  const list = state.providers.filter(p => p.status !== "inactive");
+  $("#people-select").innerHTML = `<option value="">— เลือกชื่อผู้ให้บริการ —</option>` +
+    list.map(p => `<option value="${p.id}">${esc(p.name)}${p.role === "admin" ? " 🔒" : ""}</option>`).join("");
+  if (last && list.some(p => p.id === last)) $("#people-select").value = last;   // จำชื่อที่ใช้ล่าสุดในเครื่องนี้
   $("#people-empty").hidden = list.length > 0;
+  $("#people-select").hidden = $("#people-go").hidden = $("#people-hint").hidden = list.length === 0;
   show("home");
 }
-$("#search").addEventListener("input", renderHome);
-$("#people").addEventListener("click", e => {
-  const btn = e.target.closest(".person"); if (!btn) return;
-  pickProvider(state.providers.find(p => p.id === btn.dataset.id));
+$("#people-go").addEventListener("click", () => {
+  const id = $("#people-select").value;
+  if (!id) { toast("เลือกชื่อผู้ให้บริการก่อน", "error"); return $("#people-select").focus(); }
+  pickProvider(state.providers.find(p => p.id === id));
 });
+$("#people-select").addEventListener("keydown", e => { if (e.key === "Enter") $("#people-go").click(); });
 async function pickProvider(p) {
   if (!p) return;
   if (p.role === "admin") {
@@ -649,7 +756,7 @@ async function savePassword(p, pw) {
 }
 $("#btn-logout").addEventListener("click", async () => {
   if (state.dirty && !confirm("มีรายการที่ยังไม่ได้บันทึก ต้องการออกจากระบบโดยไม่บันทึกหรือไม่?")) return;
-  state.dirty = false; state.current = null; $("#search").value = "";
+  state.dirty = false; state.current = null;
   try { await loadProviders(); } catch {}
   renderHome();
 });
@@ -799,12 +906,15 @@ function renderRows(invalidIdx = -1) {
   $("#rec-add").disabled = $("#rec-save").disabled = ro;
   $("#rec-rows").innerHTML = state.rows.length ? state.rows.map((r, i) => `
     <tr data-i="${i}"${i === invalidIdx ? ' class="invalid"' : ""}>
-      <td class="num">${i + 1}</td>
-      <td><select data-f="client" aria-label="ผู้รับบริการ"${dis}>${optSelect("clients", r.client, "เลือกผู้รับบริการ")}</select></td>
-      <td><select data-f="topic" aria-label="เรื่องที่ให้บริการ"${dis}>${optSelect("topics", r.topic, "เลือกเรื่อง")}</select></td>
-      <td><select data-f="channel" aria-label="ช่องทางให้บริการ"${dis}>${optSelect("channels", r.channel, "เลือกช่องทาง")}</select></td>
-      <td><input type="number" data-f="qty" min="1" max="999" step="1" inputmode="numeric" value="${r.qty ?? 1}" aria-label="จำนวน (ราย)"${dis}></td>
-      <td style="width:70px"><button class="btn-del" data-del="${i}"${dis}>ลบ</button></td>
+      <td class="num" data-n="${i + 1}">${i + 1}</td>
+      <td class="c-client" data-label="ผู้รับบริการ"><select data-f="client" aria-label="ผู้รับบริการ"${dis}>${optSelect("clients", r.client, "เลือกผู้รับบริการ")}</select></td>
+      <td class="c-topic" data-label="เรื่องที่ให้บริการ"><select data-f="topic" aria-label="เรื่องที่ให้บริการ"${dis}>${optSelect("topics", r.topic, "เลือกเรื่อง")}</select></td>
+      <td class="c-channel" data-label="ช่องทางให้บริการ"><select data-f="channel" aria-label="ช่องทางให้บริการ"${dis}>${optSelect("channels", r.channel, "เลือกช่องทาง")}</select></td>
+      <td class="c-qty" data-label="จำนวน (ราย)"><div class="qty">
+        <button type="button" data-step="-1" aria-label="ลดจำนวน"${dis}>−</button>
+        <input type="number" data-f="qty" min="1" max="999" step="1" inputmode="numeric" pattern="[0-9]*" value="${r.qty ?? 1}" aria-label="จำนวน (ราย)"${dis}>
+        <button type="button" data-step="1" aria-label="เพิ่มจำนวน"${dis}>+</button></div></td>
+      <td class="c-del"><button class="btn-del" data-del="${i}"${dis}>ลบ</button></td>
     </tr>`).join("")
     : `<tr><td colspan="6" class="empty">${ro ? "ไม่มีรายการในวันนี้" : "ไม่มีรายการ กด “เพิ่มรายการผู้รับบริการ” เพื่อเริ่ม"}</td></tr>`;
   setDirty(state.dirty);
@@ -817,13 +927,22 @@ function onRowEdit(e) {
 $("#rec-rows").addEventListener("change", onRowEdit);
 $("#rec-rows").addEventListener("input", e => { if (e.target.dataset.f === "qty") onRowEdit(e); });
 $("#rec-rows").addEventListener("click", e => {
+  const st = e.target.closest("[data-step]");
+  if (st && !dayLocked()) {
+    const tr = st.closest("tr"), r = state.rows[+tr.dataset.i];
+    r.qty = Math.min(999, Math.max(1, (parseInt(r.qty, 10) || 1) + +st.dataset.step));
+    tr.querySelector('[data-f="qty"]').value = r.qty; tr.classList.remove("invalid"); setDirty(true);
+    return;
+  }
   const b = e.target.closest("[data-del]"); if (!b || dayLocked()) return;
   state.rows.splice(+b.dataset.del, 1); state.dirty = true; renderRows();
 });
 $("#rec-add").addEventListener("click", () => {
   if (dayLocked()) return;
   state.rows.push(emptyRow()); state.dirty = true; renderRows();
-  const sels = $("#rec-rows").querySelectorAll('select[data-f="client"]'); sels[sels.length - 1]?.focus();
+  const last = $("#rec-rows").lastElementChild;
+  if (TOUCH) last?.scrollIntoView({ block: "center", behavior: "smooth" });   // บน iPad ไม่เปิดตัวเลือกให้อัตโนมัติ
+  else last?.querySelector('select[data-f="client"]')?.focus();
 });
 $("#rec-save").addEventListener("click", async () => {
   if (dayLocked()) return toast("เดือนนี้ปิดงวดแล้ว แก้ไขไม่ได้", "error");
@@ -968,6 +1087,8 @@ function renderOptEditor() {
       <h3>${label}</h3>
       <ul class="opt-list">${state.optDraft[key].map((o, i) => `
         <li class="${o._new ? "new" : ""}${o.active ? "" : " off"}" data-i="${i}">
+          <button class="opt-move" data-move="-1" aria-label="เลื่อนขึ้น"${i === 0 ? " disabled" : ""}>▲</button>
+          <button class="opt-move" data-move="1" aria-label="เลื่อนลง"${i === state.optDraft[key].length - 1 ? " disabled" : ""}>▼</button>
           <input value="${esc(o.name)}" placeholder="ชื่อตัวเลือก" aria-label="${label} ลำดับ ${i + 1}">
           ${o._new
             ? `<button class="btn-del" data-rm>ลบ</button>`
@@ -992,6 +1113,12 @@ $("#opt-grid").addEventListener("click", e => {
     list.splice(+li.dataset.i, 1); renderOptEditor();
   } else if (li && e.target.closest("[data-toggle]")) {
     const o = list[+li.dataset.i]; o.active = !o.active; renderOptEditor();
+  } else if (li && e.target.closest("[data-move]")) {          // เปลี่ยนลำดับ (มีผลกับช่องเลือก รายงาน และลำดับรายชื่อ)
+    const i = +li.dataset.i, j = i + +e.target.closest("[data-move]").dataset.move;
+    if (j < 0 || j >= list.length) return;
+    [list[i], list[j]] = [list[j], list[i]];
+    renderOptEditor();
+    $(`#opt-grid [data-key="${key}"] li[data-i="${j}"] [data-move="${j > i ? 1 : -1}"]`)?.focus();
   }
 });
 $("#opt-save").addEventListener("click", async () => {
@@ -1018,9 +1145,12 @@ $("#opt-save").addEventListener("click", async () => {
         if (old.active !== o.active) diff.push(`${label}: ${o.active ? "เปิด" : "ปิด"}ใช้งาน “${o.name}”`);
       }
     }
-    addLog(batch, "options", diff.join(", ") || "ไม่มีการเปลี่ยนแปลงชื่อหรือสถานะ");
+    for (const [key, label] of OPT_LISTS)
+      if (next[key].map(o => o.id).join() !== state.options[key].map(o => o.id).join()) diff.push(`${label}: เปลี่ยนลำดับ`);
+    addLog(batch, "options", diff.join(", ") || "ไม่มีการเปลี่ยนแปลง");
     await batch.commit();
     state.options = next;
+    sortProviders();
     openAdmin(); renderRows();
     toast("บันทึกตัวเลือกแล้ว", "ok");
   } catch (err) { toast(friendlyError(err), "error"); }
@@ -1223,7 +1353,8 @@ const REPORTS = [
   { id: 3, kind: "provider", col: "channels", title: `สรุปจำนวนสถิติการให้บริการของ${OFFICE} แยกตามผู้ให้บริการและช่องทางให้บริการ` },
   { id: 4, kind: "option", row: "topics",   col: "clients", title: "สรุปจำนวนผู้ใช้บริการ แยกตามเรื่องที่ให้บริการ" },
   { id: 5, kind: "option", row: "channels", col: "clients", title: "สรุปจำนวนผู้ใช้บริการ แยกตามช่องทางให้บริการ" },
-  { id: 6, kind: "list", title: "รายงานรายการให้บริการทั้งหมด (ส่งออก Excel ได้)" }
+  { id: 6, kind: "list", title: "รายงานรายการให้บริการทั้งหมด (ส่งออก Excel ได้)" },
+  { id: 7, kind: "person", title: "สรุปสถิติการให้บริการรายบุคคล แยกรายวัน (แบบฟอร์มรายเดือน)" }
 ];
 const FIELD = { clients: "client", topics: "topic", channels: "channel" };
 const LIST_LIMIT = 1000;
@@ -1257,9 +1388,17 @@ function openReport() {
     setDate3($("#rp-to"), todayIso());
     $("#rp-type").innerHTML = REPORTS.map(r => `<option value="${r.id}">${r.id}. ${esc(r.title)}</option>`).join("");
   }
+  // รายชื่อผู้ให้บริการ (รวมผู้ที่ปิดใช้งาน เพื่อดูข้อมูลย้อนหลังได้)
+  const keep = $("#rp-person").value || state.current?.id;
+  $("#rp-person").innerHTML = state.providers.map(p =>
+    `<option value="${p.id}">${esc(p.name)}${p.status === "inactive" ? " (ปิดใช้งาน)" : ""}</option>`).join("");
+  if (keep) $("#rp-person").value = keep;
+  syncPersonField();
   show("report");
 }
-$("#rp-type").addEventListener("change", () => { if (reportCache) runReport(); });   // เปลี่ยนรูปแบบ ใช้ข้อมูลเดิม ไม่อ่านฐานข้อมูลซ้ำ
+function syncPersonField() { $("#rp-person-row").hidden = +$("#rp-type").value !== 7; }
+$("#rp-type").addEventListener("change", () => { syncPersonField(); if (reportCache) runReport(); });
+$("#rp-person").addEventListener("change", () => { if (reportCache && +$("#rp-type").value === 7) runReport(); });   // เปลี่ยนรูปแบบ ใช้ข้อมูลเดิม ไม่อ่านฐานข้อมูลซ้ำ
 
 async function fetchItems(from, to) {
   const key = `${from}|${to}`;
@@ -1299,8 +1438,9 @@ function buildModel(rep, items, from, to) {
   let rowDefs, rf;
   if (rep.kind === "provider") {                      // แถว = ผู้ให้บริการ (ที่เปิดใช้งาน + ที่มีข้อมูล)
     const ids = new Set([...state.providers.filter(p => p.status !== "inactive").map(p => p.id), ...items.map(i => i.providerId)]);
+    const order = id => { const i = state.providers.findIndex(p => p.id === id); return i < 0 ? 99999 : i; };
     rowDefs = [...ids].map(id => ({ id, name: provName(id, items.find(i => i.providerId === id)?.providerName) }))
-      .sort((a, b) => a.name.localeCompare(b.name, "th"));
+      .sort((a, b) => order(a.id) - order(b.id));
     rf = "providerId"; m.rowLabel = "ผู้ให้บริการ";
   } else {
     rowDefs = colsFor(rep.row, items); rf = FIELD[rep.row]; m.rowLabel = colLabel[rep.row];
@@ -1359,6 +1499,86 @@ function renderModel(m, total, docs, rowsN) {
     </div>`;
 }
 
+/* ---------- รายงาน 7: รายบุคคล แยกรายวัน (แบบฟอร์มรายเดือน) ---------- */
+const PF_SECTIONS = [["channels", "ช่องทางการให้บริการ"], ["clients", "ประเภทผู้รับบริการ"], ["topics", "เรื่องที่ให้บริการ"]];
+function monthsBetween(from, to) {
+  const out = []; let [y, m] = from.split("-").map(Number); m--;
+  const [ty, tm] = to.split("-").map(Number);
+  while (y < ty || (y === ty && m <= tm - 1)) { out.push([y, m]); if (++m > 11) { m = 0; y++; } }
+  return out;
+}
+function buildPersonModel(rep, items, from, to, pid) {
+  const name = provName(pid, items[0]?.providerName);
+  const blocks = monthsBetween(from, to).map(([y, m]) => {
+    const ym = `${y}-${pad(m + 1)}`, nDays = dim(y, m);
+    const inMonth = items.filter(i => i.date.startsWith(ym));
+    const fyBE = (m >= 9 ? y + 1 : y) + 543;               // ปีงบประมาณเริ่ม ต.ค.
+    const dayTotal = Array(31).fill(0);
+    for (const it of inMonth) dayTotal[+it.date.slice(8) - 1] += it.qty;
+    const sections = PF_SECTIONS.map(([key, label]) => {
+      const f = FIELD[key];
+      const rows = colsFor(key, inMonth).map((o, i) => {
+        const days = Array(31).fill(0);
+        for (const it of inMonth) if (it[f] === o.id) days[+it.date.slice(8) - 1] += it.qty;
+        return { label: `${i + 1}. ${o.name}${o.active ? "" : " (ปิดใช้งาน)"}`, days, total: days.reduce((a, b) => a + b, 0) };
+      });
+      return { label, days: dayTotal, total: dayTotal.reduce((a, b) => a + b, 0), rows };
+    });
+    return { ym, y, m, nDays, fyBE, sections,
+             title: `สถิติการให้บริการของ${OFFICE} ประจำปีงบประมาณ พ.ศ. ${fyBE}`,
+             monthLabel: `ประจำเดือน ${TH_MONTHS[m]} ${y + 543}` };
+  });
+  const be = iso => `${+iso.slice(0, 4) + 543}${iso.slice(4)}`;
+  return { id: 7, kind: "person", title: rep.title, from, to, name, blocks,
+           fileName: `สถิติรายบุคคล_${name.replace(/\s+/g, "_")}_${be(from)}_ถึง_${be(to)}` };
+}
+function renderPerson(m) {
+  const dayHead = Array.from({ length: 31 }, (_, i) => i + 1);
+  const cells = (days, nDays, isSec) => days.map((v, i) =>
+    i >= nDays ? `<td class="na"></td>` : `<td class="${v ? "v" : ""}">${isSec ? v : (v || "")}</td>`).join("");
+  const total = m.blocks.reduce((a, b) => a + b.sections[0].total, 0);
+  $("#rp-output").innerHTML = `
+    <div class="card report-out">
+      <div class="rp-head"><h2>${esc(m.title)}</h2><p>${esc(m.name)} · ระหว่างวันที่ ${thaiLong(m.from)} ถึงวันที่ ${thaiLong(m.to)} · รวม ${num(total)} ราย</p></div>
+      <div class="rp-charts" id="rp-charts"></div>
+      ${m.blocks.map(b => `
+      <div class="pf-block">
+        <h2>${esc(b.title)}</h2>
+        <div class="pf-name">ชื่อเจ้าหน้าที่ผู้ให้บริการ : ${esc(m.name)}</div>
+        <div class="table-wrap" style="border-radius:0 var(--radius-sm) var(--radius-sm) var(--radius-sm)"><table class="pf-table">
+          <thead>
+            <tr><th class="lbl">เดือนที่ให้บริการ</th>${dayHead.map(() => "<th>วันที่</th>").join("")}<th class="tot" rowspan="2">รวม</th></tr>
+            <tr><th class="lbl">${b.monthLabel}</th>${dayHead.map(d => `<th>${d}</th>`).join("")}</tr>
+          </thead>
+          <tbody>${b.sections.map(sec => `
+            <tr class="sec"><td class="lbl">${sec.label}</td>${cells(sec.days, b.nDays, true)}<td class="tot">${sec.total}</td></tr>
+            ${sec.rows.map(r => `<tr><td class="lbl">${esc(r.label)}</td>${cells(r.days, b.nDays, false)}<td class="tot">${r.total}</td></tr>`).join("")}`).join("")}
+          </tbody>
+        </table></div>
+      </div>`).join("")}
+    </div>`;
+}
+function exportPerson(m) {
+  const wb = XLSX.utils.book_new();
+  for (const b of m.blocks) {
+    const day = (v, i, sec) => i >= b.nDays ? "" : sec ? v : (v || "");
+    const aoa = [
+      [b.title], [`ชื่อเจ้าหน้าที่ผู้ให้บริการ : ${m.name}`],
+      ["เดือนที่ให้บริการ", ...Array(31).fill("วันที่"), "รวม"],
+      [b.monthLabel, ...Array.from({ length: 31 }, (_, i) => i + 1), ""]
+    ];
+    for (const sec of b.sections) {
+      aoa.push([sec.label, ...sec.days.map((v, i) => day(v, i, true)), sec.total]);
+      for (const r of sec.rows) aoa.push([r.label, ...r.days.map((v, i) => day(v, i, false)), r.total]);
+    }
+    const ws = XLSX.utils.aoa_to_sheet(aoa);
+    ws["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 32 } }, { s: { r: 1, c: 0 }, e: { r: 1, c: 10 } }, { s: { r: 2, c: 32 }, e: { r: 3, c: 32 } }];
+    ws["!cols"] = [{ wch: 46 }, ...Array(31).fill({ wch: 5 }), { wch: 7 }];
+    XLSX.utils.book_append_sheet(wb, ws, `${TH_MONTHS_S[b.m]} ${String(b.y + 543).slice(2)}`);
+  }
+  XLSX.writeFile(wb, `${m.fileName}.xlsx`);
+}
+
 async function runReport() {
   const from = getDate3($("#rp-from")), to = getDate3($("#rp-to"));
   if (from > to) return toast("วันที่เริ่มต้องไม่เกินวันที่สิ้นสุด", "error");
@@ -1366,6 +1586,18 @@ async function runReport() {
   const btn = $("#rp-run"); btn.disabled = true;
   if (reportCache?.key !== `${from}|${to}`) $("#rp-output").innerHTML = `<div class="center-msg"><div class="spinner"></div><p>กำลังโหลดข้อมูล…</p></div>`;
   try {
+    if (rep.kind === "person") {
+      const months = monthsBetween(from, to);
+      if (months.length > 13) return toast("รายงานรายบุคคลเลือกได้ไม่เกิน 13 เดือนต่อครั้ง", "error");
+      const { items } = await fetchItems(from, to);
+      const pid = $("#rp-person").value;
+      const mine = items.filter(i => i.providerId === pid);
+      state.report = buildPersonModel(rep, mine, from, to, pid);
+      renderPerson(state.report);
+      if (mine.length) drawCharts(state.report, mine);
+      $("#rp-excel").disabled = $("#rp-print").disabled = false;   // แบบฟอร์มว่างก็พิมพ์/ส่งออกได้
+      return;
+    }
     const { items, docs } = await fetchItems(from, to);
     state.report = buildModel(rep, items, from, to);
     renderModel(state.report, sumQty(items), docs, items.length);
@@ -1398,7 +1630,7 @@ async function drawCharts(m, items) {
   Chart.defaults.color = "#5f6b7d";
   const specs = [];
 
-  if (m.id === 6) {
+  if (m.id === 6 || m.id === 7) {
     // แนวโน้มจำนวนรายการ: รายวัน (ช่วงไม่เกิน 92 วัน) หรือรายเดือน
     const [fy, fm, fd] = m.from.split("-").map(Number), [ty, tm, td] = m.to.split("-").map(Number);
     const start = new Date(fy, fm - 1, fd), end = new Date(ty, tm - 1, td);
@@ -1464,6 +1696,7 @@ $("#rp-excel").addEventListener("click", async () => {
   const btn = $("#rp-excel"); btn.disabled = true;
   try {
     await loadXLSX();
+    if (m.kind === "person") return exportPerson(m);
     const title = m.title.replace(" (ส่งออก Excel ได้)", "");
     const aoa = [[title], [m.subtitle], [], m.head, ...m.rows];
     if (m.foot) aoa.push(m.foot);
